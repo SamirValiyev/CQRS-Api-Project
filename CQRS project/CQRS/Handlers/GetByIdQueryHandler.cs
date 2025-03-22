@@ -1,7 +1,9 @@
 ﻿using CQRS_project.Context;
+using CQRS_project.CQRS.Queries;
+using CQRS_project.CQRS.Responces;
 using CQRS_project.Data.Entities;
 
-namespace CQRS_project.Queries.Students
+namespace CQRS_project.CQRS.Handlers
 {
     public class GetByIdQueryHandler
     {

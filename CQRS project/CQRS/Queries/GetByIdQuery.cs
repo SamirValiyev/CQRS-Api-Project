@@ -1,4 +1,4 @@
-﻿namespace CQRS_project.Queries.Students
+﻿namespace CQRS_project.CQRS.Queries
 {
     public class GetByIdQuery
     {

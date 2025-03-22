@@ -1,6 +1,6 @@
 
 using CQRS_project.Context;
-using CQRS_project.Queries.Students;
+using CQRS_project.CQRS.Handlers;
 using Microsoft.EntityFrameworkCore;
 
 namespace CQRS_project
@@ -12,18 +12,19 @@ namespace CQRS_project
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));         
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             // Add services to the container.
 
             builder.Services.AddControllers().AddNewtonsoftJson(opt =>
             {
-                opt.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<GetByIdQueryHandler>();
+            builder.Services.AddScoped<GetAllQueryHandler>();
 
             var app = builder.Build();
 

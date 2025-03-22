@@ -1,7 +1,5 @@
-﻿using CQRS_project.Queries.Students;
-using Microsoft.AspNetCore.Http;
+﻿using CQRS_project.CQRS.Handlers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace CQRS_project.Controllers
 {
@@ -10,14 +8,24 @@ namespace CQRS_project.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly GetByIdQueryHandler _getByIdQueryHandler;
-        public StudentsController(GetByIdQueryHandler getByIdQueryHandler)
+        private readonly GetAllQueryHandler _getAllResponseQueryHandler;
+
+        public StudentsController(GetByIdQueryHandler getByIdQueryHandler, GetAllQueryHandler getAllResponseQueryHandler)
         {
             _getByIdQueryHandler = getByIdQueryHandler;
+            _getAllResponseQueryHandler = getAllResponseQueryHandler;
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var result = _getByIdQueryHandler.Handle(new GetByIdQuery(id));
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var result = _getAllResponseQueryHandler.Handle(new GetAllQuery());
             return Ok(result);
         }
     }
