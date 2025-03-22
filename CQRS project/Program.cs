@@ -1,5 +1,6 @@
 
 using CQRS_project.Context;
+using CQRS_project.Queries.Students;
 using Microsoft.EntityFrameworkCore;
 
 namespace CQRS_project
@@ -22,6 +23,7 @@ namespace CQRS_project
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<GetByIdQueryHandler>();
 
             var app = builder.Build();
 

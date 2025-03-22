@@ -3,6 +3,7 @@ using CQRS_project.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CQRS_project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250322100810_updatedProject")]
+    partial class updatedProject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,29 +46,6 @@ namespace CQRS_project.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 20,
-                            Name = "John",
-                            Surname = "Doe"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 21,
-                            Name = "Jane",
-                            Surname = "Doe"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Age = 22,
-                            Name = "Jack",
-                            Surname = "Smith"
-                        });
                 });
 #pragma warning restore 612, 618
         }
