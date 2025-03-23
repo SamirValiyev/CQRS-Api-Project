@@ -26,6 +26,7 @@ namespace CQRS_project
             builder.Services.AddScoped<GetByIdQueryHandler>();
             builder.Services.AddScoped<GetAllQueryHandler>();
             builder.Services.AddScoped<CreateStudentCommandHandler>();
+            builder.Services.AddScoped<DeleteStudentCommandHandler>();
 
             var app = builder.Build();
 

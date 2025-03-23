@@ -1,4 +1,5 @@
 ﻿using CQRS_project.CQRS.Commands.Create;
+using CQRS_project.CQRS.Commands.Delete;
 using CQRS_project.CQRS.Handlers;
 using CQRS_project.CQRS.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,14 @@ namespace CQRS_project.Controllers
         private readonly GetByIdQueryHandler _getByIdQueryHandler;
         private readonly GetAllQueryHandler _getAllResponseQueryHandler;
         private readonly CreateStudentCommandHandler _createStudentCommandHandler;
+        private readonly DeleteStudentCommandHandler _deleteStudentCommandHandler;
 
-        public StudentsController(GetByIdQueryHandler getByIdQueryHandler, GetAllQueryHandler getAllResponseQueryHandler, CreateStudentCommandHandler createStudentCommandHandler)
+        public StudentsController(GetByIdQueryHandler getByIdQueryHandler, GetAllQueryHandler getAllResponseQueryHandler, CreateStudentCommandHandler createStudentCommandHandler, DeleteStudentCommandHandler deleteStudentCommandHandler)
         {
             _getByIdQueryHandler = getByIdQueryHandler;
             _getAllResponseQueryHandler = getAllResponseQueryHandler;
             _createStudentCommandHandler = createStudentCommandHandler;
+            _deleteStudentCommandHandler = deleteStudentCommandHandler;
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
@@ -36,7 +39,14 @@ namespace CQRS_project.Controllers
         public IActionResult Add(CreateStudentCommand command)
         {
             _createStudentCommandHandler.Handle(command);
-            return Ok();
+            return Created("",command.Name);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _deleteStudentCommandHandler.Handle(new DeleteStudentCommand(id));
+            return NoContent();
         }
     }
 }
