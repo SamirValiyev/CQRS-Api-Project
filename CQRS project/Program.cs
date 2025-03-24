@@ -1,6 +1,7 @@
 
 using CQRS_project.Context;
 using CQRS_project.CQRS.Handlers;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CQRS_project
@@ -10,6 +11,7 @@ namespace CQRS_project
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+           
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -20,13 +22,18 @@ namespace CQRS_project
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+          
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<GetByIdQueryHandler>();
-            builder.Services.AddScoped<GetAllQueryHandler>();
-            builder.Services.AddScoped<CreateStudentCommandHandler>();
-            builder.Services.AddScoped<DeleteStudentCommandHandler>();
+            builder.Services.AddMediatR(typeof(Program));
+            #region Services Registration
+            //builder.Services.AddScoped<GetByIdQueryHandler>();
+            //builder.Services.AddScoped<GetAllQueryHandler>();
+            //builder.Services.AddScoped<CreateStudentCommandHandler>();
+            //builder.Services.AddScoped<DeleteStudentCommandHandler>();
+            //builder.Services.AddScoped<UpdateStudentCommandHandler>();
+            #endregion
 
             var app = builder.Build();
 

@@ -1,6 +1,9 @@
-﻿namespace CQRS_project.CQRS.Queries
+﻿using CQRS_project.CQRS.Responces;
+using MediatR;
+
+namespace CQRS_project.CQRS.Queries
 {
-    public class GetByIdQuery
+    public class GetByIdQuery:IRequest<GetByIdQueryResponse>
     {
         public int Id { get; set; }
 
