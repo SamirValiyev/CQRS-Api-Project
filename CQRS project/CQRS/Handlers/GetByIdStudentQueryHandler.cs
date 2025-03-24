@@ -7,18 +7,18 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CQRS_project.CQRS.Handlers
 {
-    public class GetByIdQueryHandler:IRequestHandler<GetByIdQuery,GetByIdQueryResponse>
+    public class GetByIdStudentQueryHandler:IRequestHandler<GetByIdStudentQuery,GetByIdStudentQueryResponse>
     {
         private readonly AppDbContext _appDbContext;
-        public GetByIdQueryHandler(AppDbContext appDbContext)
+        public GetByIdStudentQueryHandler(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
-        public async Task<GetByIdQueryResponse> Handle(GetByIdQuery request, CancellationToken cancellationToken)
+        public async Task<GetByIdStudentQueryResponse> Handle(GetByIdStudentQuery request, CancellationToken cancellationToken)
         {
             var student =await _appDbContext.Set<Student>().FindAsync(request.Id);
-            return new GetByIdQueryResponse
+            return new GetByIdStudentQueryResponse
             {
                 Name = student.Name,
                 Surname = student.Surname,

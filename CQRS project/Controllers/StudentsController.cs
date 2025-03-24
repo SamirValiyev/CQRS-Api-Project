@@ -70,12 +70,39 @@ namespace CQRS_project.Controllers
         #endregion
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdStudent(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var result = await _mediator.Send(new GetByIdQuery(id));
+            var result = await _mediator.Send(new GetByIdStudentQuery(id));
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _mediator.Send(new GetAllStudentsQuery());
+            return Ok(result);
+        }
 
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateStudentCommand command)
+        {
+            var updateStudent = await _mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleteStudent = await _mediator.Send(new DeleteStudentCommand(id));
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(CreateStudentCommand command)
+        {
+            var createStudent = await _mediator.Send(command);
+            return Created("", command.Name);
+
+        }
     }
 }

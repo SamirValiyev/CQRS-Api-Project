@@ -3,11 +3,11 @@ using MediatR;
 
 namespace CQRS_project.CQRS.Queries
 {
-    public class GetByIdQuery:IRequest<GetByIdQueryResponse>
+    public class GetByIdStudentQuery:IRequest<GetByIdStudentQueryResponse>
     {
         public int Id { get; set; }
 
-        public GetByIdQuery(int Id)
+        public GetByIdStudentQuery(int Id)
         {
             this.Id = Id;
         }

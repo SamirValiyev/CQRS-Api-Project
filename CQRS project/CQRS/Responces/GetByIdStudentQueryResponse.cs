@@ -1,6 +1,6 @@
 ﻿namespace CQRS_project.CQRS.Responces
 {
-    public class GetByIdQueryResponse
+    public class GetByIdStudentQueryResponse
     {
         public string Name { get; set; }
         public string Surname { get; set; }
